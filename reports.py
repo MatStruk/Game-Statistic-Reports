@@ -51,8 +51,71 @@ def get_genres(file_name):
         gameGenre.append(data[a][3])
         a += 1
     gameGenre = set(gameGenre)
-    a = 0
-    b = 1
     gameGenre = sorted(gameGenre)
     return gameGenre
+
+
+def get_most_played(file_name):
+    data = [word.split('\t') for word in open(file_name, "r")]
+    a = 0
+    copiesSold = []
+    while a < len(open(file_name).readlines()):
+        copiesSold.append(float(data[a][1]))
+        a += 1
+    number = copiesSold.index(max(copiesSold))
+    return data[number][0]
+
+
+def sum_sold(file_name):
+    data = [word.split('\t') for word in open(file_name, "r")]
+    a = 0
+    sumSold = []
+    while a < len(open(file_name).readlines()):
+        sumSold.append(float(data[a][1]))
+        a += 1
+    number = sum(sumSold)
+    return number
+
+
+def get_selling_avg(file_name):
+    data = [word.split('\t') for word in open(file_name, "r")]
+    a = 0
+    avgSold = []
+    while a < len(open(file_name).readlines()):
+        avgSold.append(float(data[a][1]))
+        a += 1
+    number = sum(avgSold) / len(open(file_name).readlines())
+    return number
+
+
+def count_longest_title(file_name):
+    data = [word.split('\t') for word in open(file_name, "r")]
+    a = 0
+    longestName = []
+    while a < len(open(file_name).readlines()):
+        longestName.append(len(data[a][0]))
+        a += 1
+    number = max(longestName)
+    return number
+
+
+def get_date_avg(file_name):
+    data = [word.split('\t') for word in open(file_name, "r")]
+    a = 0
+    avgSold = []
+    while a < len(open(file_name).readlines()):
+        avgSold.append(float(data[a][2]))
+        a += 1
+    number = sum(avgSold) / len(open(file_name).readlines())
+    if (sum(avgSold) % len(open(file_name).readlines())) / len(open(file_name).readlines()) > 0.5:
+        number += 1
+    return int(number)
+
+
+def get_game(file_name, title):
+    data = [word.split('\t') for word in open(file_name, "r")]
+    for a in data:
+        if title in a:
+            return a
+    return "There is no game " + title + ". Check the spelling."
 
